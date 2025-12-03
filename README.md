@@ -1,92 +1,78 @@
-# GTHackathon
-
-README.md
 H-002 | Hyper-Personalized Customer Support Agent
-Problem Statement
+🚀 Built for the Customer Experience Automation track
 
-Build an AI customer support agent that gives hyper-personalized, context-aware responses based on:
+🔍 Problem Statement
 
-Customer history (loyalty, favorites, coupons)
+Retail customers expect instant, specific answers (store timings, stock availability, offers, order status). Traditional chatbots provide generic responses and fail to personalize based on user context.
 
-User’s location (near a store)
+🎯 Goal
 
-Internal knowledge (store timings, offers, policies)
+Build an AI support agent that uses:
+• Customer history
+• Real-time location context
+• Internal company knowledge (RAG)
+• Privacy-safe processing (PII masking)
+to give hyper-personalized and actionable support responses.
 
-Privacy rules (must mask PII before using LLM)
+💡 Example
 
-Example:
 User: “I’m cold.”
-Bot: “Come inside Starbucks MG Road, it’s warm here! You also have a 10% Hot Cocoa coupon.”
+Bot: “You’re right outside Starbucks MG Road. Come in where it’s warm! You also have a 10% Hot Cocoa coupon today.”
 
-Approach
+⚙️ Approach
 
-Customer Profile:
-Predefined user info (name, loyalty type, favorite items, coupons, home store).
+🔹 Customer Profile Personalization:
+Includes name, loyalty tier, favorite items, coupons, and order history — used to tailor replies.
 
-PII Masking:
-Emails + phone numbers are masked as [SENSITIVE] before being sent to the LLM.
+🔹 PII Masking:
+Phone numbers and emails are automatically masked as [SENSITIVE] before sending the text to the LLM.
 
-RAG (Retrieval Augmented Generation):
-Small internal “PDF-like” documents stored as text (store timings, offers, refund policy, etc.).
-Simple keyword-based search selects the most relevant info.
+🔹 RAG (Retrieval Augmented Generation):
+Internal “PDF-like” documents (store timings, offers, refund policy, etc.) are stored as text.
+A simple keyword-based retrieval picks the most relevant documents for each query.
 
-LLM Response Generation:
-Masked user message + customer profile + RAG documents are sent to the OpenAI model to generate a personalized, specific answer.
+🔹 LLM Response Generation:
+Final prompt = User message (masked) + Location + Customer profile + Retrieved internal docs.
+The AI generates a short, helpful, personalized reply.
 
-Frontend Chat UI:
-Simple interface (HTML/CSS/JS) with a location dropdown and chat window.
+🔹 Frontend Chat UI:
+Simple and clean interface built using HTML, CSS, and JavaScript.
 
-Backend API:
-FastAPI endpoint /chat handles:
-→ PII masking
-→ Profile lookup
-→ RAG retrieval
-→ LLM generation
+🔹 Backend API (FastAPI):
+Handles PII masking, profile lookup, document retrieval, and final LLM response generation via the /chat endpoint.
 
-Tools & Technologies
+🧰 Tools & Technologies
 
-Backend: Python, FastAPI, Uvicorn, OpenAI API, dotenv
+🖥️ Backend: Python, FastAPI, Uvicorn, OpenAI API, dotenv
+💻 Frontend: HTML, CSS, JavaScript
+🧠 Core Logic: Custom RAG, Regex-based PII masking
 
-Frontend: HTML, CSS, JavaScript
+📁 Folder Structure
 
-Other: RAG (custom), Regex-based PII masking
-
-Folder Structure
 Personalised-bot/
-│
 ├── backend/
-│   ├── main.py
-│   ├── .env
-│
+│ ├── main.py
+│ └── .env
 └── frontend/
-    ├── index.html
-    ├── style.css
-    └── app.js
+├── index.html
+├── style.css
+└── app.js
 
-How to Run
-1. Backend
+▶️ How to Run
+
+1️⃣ Backend:
 cd backend
 ..\venv\Scripts\activate
 uvicorn main:app --reload
+Open API docs → http://127.0.0.1:8000/docs
 
+2️⃣ Frontend:
+Open frontend/index.html (recommended: Live Server)
 
-Open docs:
-http://127.0.0.1:8000/docs
+✨ Features
 
-2. Frontend
-
-Open:
-
-frontend/index.html
-
-Key Features
-
-Hyper-personalized replies
-
-RAG-based information retrieval
-
-PII masking for safe LLM usage
-
-Location-aware responses
-
-Simple and clean chat interface
+⭐ Hyper-personalized replies based on customer history
+⭐ Location-aware suggestions
+⭐ RAG-based internal information retrieval
+⭐ PII masking for secure AI usage
+⭐ Clean and simple chat UI
